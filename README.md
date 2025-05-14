@@ -1,12 +1,45 @@
-# React + Vite
+# 🎬 MovieSite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek and modern movie exploration web app built with **React**, **Tailwind CSS**, and **Redux Toolkit**. Browse, search, and dive into detailed information on your favorite movies and TV shows, powered by [TMDB API](https://www.themoviedb.org/).
 
-Currently, two official plugins are available:
+> 🚀 Inspired by the JavaScript Mastery course — huge thanks for the amazing guidance!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![MovieSite Screenshot](https://github.com/AmirShakibafar/MovieSite/blob/main/public/preview.png)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🌟 Features
+
+- 🔍 Search for movies and TV series
+- 🎞️ View trending and top-rated titles
+- 📄 Read detailed information including synopsis, rating, genres, and release date
+- 🧭 Clean navigation and responsive design
+- ⚙️ State management using Redux Toolkit
+- 🌙 Dark mode support (if implemented)
+
+---
+
+## 🛠️ Built With
+
+- [React](https://reactjs.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TMDB API](https://developers.themoviedb.org/3)
+- [Vite](https://vitejs.dev/)
+
+---
+
+## 📦 Getting Started
+
+### Prerequisites
+
+Make sure you have:
+
+- Node.js installed (v14 or higher)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AmirShakibafar/MovieSite.git
+   cd MovieSite
