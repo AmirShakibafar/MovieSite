@@ -4,7 +4,7 @@ A sleek and modern movie exploration web app built with **React**, **Tailwind CS
 
 > 🚀 Inspired by the JavaScript Mastery course — huge thanks for the amazing guidance!
 
-![MovieSite Screenshot](https://github.com/AmirShakibafar/MovieSite/blob/main/public/preview.png)
+![MovieSite Screenshot](https://raw.githubusercontent.com/AmirShakibafar/MovieSite/main/public/preview.png)
 
 ---
 
@@ -15,7 +15,6 @@ A sleek and modern movie exploration web app built with **React**, **Tailwind CS
 - 📄 Read detailed information including synopsis, rating, genres, and release date
 - 🧭 Clean navigation and responsive design
 - ⚙️ State management using Redux Toolkit
-- 🌙 Dark mode support (if implemented)
 
 ---
 
@@ -39,7 +38,25 @@ Make sure you have:
 
 ### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/AmirShakibafar/MovieSite.git
-   cd MovieSite
+Follow these steps to set up the project locally:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/AmirShakibafar/MovieSite.git
+cd MovieSite
+
+# 2. Install dependencies
+npm install
+
+# 3. Create a .env file in the root and add your TMDB API key
+echo "VITE_TMDB_API_KEY=your_tmdb_api_key" > .env
+
+# 4. Start the development server
+npm run dev
+```
+Then open http://localhost:5173 in your browser.
+
+## 📚 Acknowledgements
+
+This project was built with help and inspiration from the JavaScript Mastery course by Adrian Hajdin.
+Check out JavaScript Mastery to level up your front-end skills!
