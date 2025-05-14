@@ -1,6 +1,7 @@
 import Search from "./components/Search";
 import { Spinner } from "flowbite-react";
 import { useState, useEffect } from "react";
+import MovieCard from "./components/MovieCard";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -58,13 +59,13 @@ function App() {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
         <section className="all-movies">
-          <h2>All Movies</h2>
+          <h2 className="mt-[40px]">All Movies</h2>
           {isLoading ? (
             <div className="text-center">
               <Spinner
                 color="purple"
                 aria-label="Extra large spinner Center-aligned"
-                size="xl"
+                size="xs"
               />
             </div>
           ) : errorMessage ? (
@@ -72,9 +73,7 @@ function App() {
           ) : (
             <ul>
               {movies.map((movie) => (
-                <p className="text-white" key={movie.id}>
-                  {movie.title}
-                </p>
+                <MovieCard movie={movie } key={movie.id}/>
               ))}
             </ul>
           )}
