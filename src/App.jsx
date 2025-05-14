@@ -1,7 +1,9 @@
 import Search from "./components/Search";
 import { Spinner } from "flowbite-react";
+import { useDebounce } from "react-use";
 import { useState, useEffect } from "react";
 import MovieCard from "./components/MovieCard";
+import { updateSearchCount } from "./appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -14,16 +16,20 @@ const API_OPTIONS = {
 };
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchMovies = async () => {
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
+  const fetchMovies = async (query = "") => {
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      const endPoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endPoint = query
+        ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+        : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
       const response = await fetch(endPoint, API_OPTIONS);
       if (!response.ok) {
         throw new Error("response was not ok");
@@ -36,6 +42,9 @@ function App() {
       }
       console.log(data);
       setMovies(data.results || []);
+      if (query && data.results.length > 0) {
+        await updateSearchCount(query, data.results[0]);
+      }
     } catch (e) {
       console.log(e);
       setErrorMessage("error while fetchingg movies please try again later.");
@@ -44,8 +53,8 @@ function App() {
     }
   };
   useEffect(() => {
-    fetchMovies();
-  }, []);
+    fetchMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
   return (
     <main>
       <div className="pattern"></div>
@@ -73,7 +82,7 @@ function App() {
           ) : (
             <ul>
               {movies.map((movie) => (
-                <MovieCard movie={movie } key={movie.id}/>
+                <MovieCard movie={movie} key={movie.id} />
               ))}
             </ul>
           )}
