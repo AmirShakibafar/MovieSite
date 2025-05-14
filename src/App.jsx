@@ -1,4 +1,5 @@
 import Search from "./components/Search";
+import { Spinner } from "flowbite-react";
 import { useState, useEffect } from "react";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
@@ -16,24 +17,29 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  
   const fetchMovies = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
+
     try {
       const endPoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
-      const response = await fetch(endPoint, API_OPTIONS );
+      const response = await fetch(endPoint, API_OPTIONS);
       if (!response.ok) {
-        throw new Error("response was not ok")
-
+        throw new Error("response was not ok");
       }
       const data = await response.json();
-      if (data.response === "False") {
-        throw new Error("failed to fetch movies")
+      if (data.Response === "False") {
+        setMovies([]);
+        setErrorMessage("failed to fetch movies");
+        return;
       }
       console.log(data);
-      
+      setMovies(data.results || []);
     } catch (e) {
       console.log(e);
       setErrorMessage("error while fetchingg movies please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -53,7 +59,25 @@ function App() {
         </header>
         <section className="all-movies">
           <h2>All Movies</h2>
-          {!!errorMessage && <p className="error-message">{errorMessage}</p>}
+          {isLoading ? (
+            <div className="text-center">
+              <Spinner
+                color="purple"
+                aria-label="Extra large spinner Center-aligned"
+                size="xl"
+              />
+            </div>
+          ) : errorMessage ? (
+            <p className="text-red-500">{errorMessage}</p>
+          ) : (
+            <ul>
+              {movies.map((movie) => (
+                <p className="text-white" key={movie.id}>
+                  {movie.title}
+                </p>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
     </main>
