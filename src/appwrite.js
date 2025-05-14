@@ -26,11 +26,23 @@ export const updateSearchCount = async (searchTerm, movie) => {
         searchTerm,
         count: 1,
         movie_id: movie.id,
-        poster_url: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+        poster_url: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
       });
-    } 
+    }
   } catch (e) {
     console.error(e);
   }
   console.log(PROJECT_ID, DATABASE_ID, COLLECTION_ID);
+};
+
+export const getTrendingMovies = async () => {
+  try {
+    const res = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(5),
+      Query.orderDesc("count"),
+    ]);
+    return res.documents;
+  } catch (e) {
+    console.error(e);
+  }
 };
